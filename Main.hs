@@ -20,6 +20,7 @@ type Label = String
 data Result = Result {
     name :: String,
     accuracy :: Double,
+    precision :: Double,
     recall :: Double
 }  deriving (Show)
 
@@ -38,7 +39,8 @@ toResult :: String -> (Double, Double, Double, Double) -> Result
 toResult name (tp, tn, fp, fn) =  
     Result {
         name = name,
-        accuracy = tp / (tp + tn),
+        accuracy = (tp + tn) / (tp + tn + fp + fn),
+        precision = tp / (tp + tn),
         recall = tp / (tp + fp) 
     } 
 
